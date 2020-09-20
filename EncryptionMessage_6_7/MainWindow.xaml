@@ -22,19 +22,28 @@
                         </Grid.ColumnDefinitions>
                         
                         <Grid Grid.Column="0" x:Name="GridCrypted">
-                            <StackPanel Orientation="Vertical">
-                                <Label Content="Незашифрованное сообщение"/>
-                                <RichTextBox Height="{Binding ElementName=GridCrypted,Path=ActualHeight}" Background="WhiteSmoke"/>
-                            </StackPanel>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <Label Content="Незашифрованное сообщение" Grid.Row="0"/>
+                            <!-- <RichTextBox x:Name="InputMessage" Height="{Binding ElementName=GridCrypted,Path=ActualHeight}" Background="WhiteSmoke"/> -->
+                            <TextBox x:Name="InputMessage"  Background="WhiteSmoke" TextWrapping="Wrap" Grid.Row="1"/>
                         </Grid>
                         
-                        <Button Grid.Column="1" Content="🢂" Height="50" FontSize="25" Foreground="DeepPink" Background="Transparent" BorderThickness="0"/>
+                        <Button Grid.Column="1" Content="🢂" Height="50" FontSize="25" Foreground="DeepPink"
+                                Background="Transparent" BorderThickness="0" Click="ButtonBase_OnClickCryptText"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         
                         <Grid Grid.Column="2" x:Name="GridUncrypted">
-                            <StackPanel Orientation="Vertical">
-                                <Label Content="Зашифрованное сообщение"/>
-                                <RichTextBox Height="{Binding ElementName=GridUncrypted,Path=ActualHeight}" Background="WhiteSmoke"/>
-                            </StackPanel>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Зашифрованное сообщение" Grid.Row="0"/>
+                            <!-- <RichTextBox x:Name="EncryptedMessage" Height="{Binding ElementName=GridUncrypted,Path=ActualHeight}" Background="WhiteSmoke"/> -->
+                            <TextBox x:Name="EncryptedMessage" Background="WhiteSmoke" TextWrapping="Wrap" Grid.Row="1"/>
                         </Grid>
                         
                     </Grid>
@@ -45,9 +54,45 @@
                     <Image MaxWidth="25" MaxHeight="25" Source="unlock.png" />
                 </TabItem.Header>
                 
-                <!-- <TabItem.Content> -->
-                <!--      -->
-                <!-- </TabItem.Content> -->
+                <TabItem.Content>
+                          <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid Grid.Column="0" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="Зашифрованное сообщение"/>
+                                    <Button Content="Copy" Click="ButtonBase_OnClickCopy" ToolTip="Скопировать зашифрованное сообщении с ПРЕДЫДУЩЕЙ страницы"/>    
+                                </StackPanel>
+                                    
+                            </Grid>
+                            
+                            <TextBox x:Name="InputEncryptedMessage"  Background="WhiteSmoke" TextWrapping="Wrap" Grid.Row="1"/>
+                        </Grid>
+                              
+                        <Button Grid.Column="1" Content="🢂" Height="50" FontSize="25" Foreground="DeepPink"
+                                Background="Transparent" BorderThickness="0" Click="ButtonBase_OnClickUnencrypt"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        
+                        <Grid Grid.Column="2" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Расшифрованное сообщение" Grid.Row="0"/>
+                            <TextBox x:Name="UnencryptedMessage" Background="WhiteSmoke" TextWrapping="Wrap" Grid.Row="1"/>
+                        </Grid>
+                        
+                    </Grid>
+                </TabItem.Content>
             </TabItem>
         </TabControl>
     </Grid>
