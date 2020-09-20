@@ -1,0 +1,80 @@
+﻿<Window x:Class="Circles_4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Circles_4"
+        mc:Ignorable="d"
+        Title="Circles drawing" Height="450" Width="800" Closing="MainWindow_OnClosing">
+ 
+    
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Right" >
+  
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Row="0" Grid.Column ="0">
+                        <Label Content="№"/>
+                    </Grid>
+                    
+                    <Grid Grid.Row="0" Grid.Column ="1">
+                        <Label Content="Цвет"/>
+                    </Grid>
+                    
+                    <Grid Grid.Row="0" Grid.Column ="2">
+                        <Label Content="Приоритет"/>
+                    </Grid>
+                    
+                    <Grid Grid.Row="1" Grid.Column ="0">
+                        <Label Content="1"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column ="0">
+                        <Label Content="2"/>
+                    </Grid>
+                    <Grid Grid.Row="3" Grid.Column ="0">
+                        <Label Content="3"/>
+                    </Grid>
+                    
+                    
+                    <Grid Grid.Row="1" Grid.Column ="1">
+                        <Canvas Background="Brown"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column ="1">
+                        <Canvas Background="Yellow"/>
+                    </Grid>
+                    <Grid Grid.Row="3" Grid.Column ="1">
+                        <Canvas Background="Aqua"/>
+                    </Grid>
+                    
+                    <Grid Grid.Row="1" Grid.Column ="2">
+                        <ComboBox Name="firstCircle" SelectionChanged="FirstCircle_OnSelectionChanged"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column ="2">
+                        <ComboBox Name="secondCircle" SelectionChanged="SecondCircle_OnSelectionChanged"/>
+                    </Grid>
+                    <Grid Grid.Row="3" Grid.Column ="2">
+                        <ComboBox Name="thirdCircle" SelectionChanged="ThirdCircle_OnSelectionChanged"/>
+                    </Grid>
+                    
+                    </Grid>
+                    
+                    <Button Name="btnStartStop" Content="Start" Background="SeaGreen" Click="BtnStartStop_OnClick"/>
+            </StackPanel>
+            
+            <Canvas Name="Canvas" DockPanel.Dock="Left" Background="Gainsboro"/>
+        </DockPanel>
+    </Grid>
+</Window>
