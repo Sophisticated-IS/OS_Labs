@@ -10,6 +10,11 @@ namespace EncryptionMessage_6_7
     public partial class MainWindow
     {
         public string Key { get; set; }
+        
+        /// <summary>
+        /// Лабораторная работа по Защите ОС задания №6-7
+        /// Автор: Сова Игорь КМБ
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();

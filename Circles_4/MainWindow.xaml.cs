@@ -19,6 +19,10 @@ namespace Circles_4
         private readonly Thread[] _threads = new Thread[3];
         public string[] Priorities { get; set; }
 
+        /// <summary>
+        /// Лабораторная работа по Защите ОС задания №4
+        /// Автор: Сова Игорь КМБ
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();

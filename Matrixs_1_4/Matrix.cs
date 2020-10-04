@@ -20,7 +20,7 @@ namespace OSLab_1
         public T[,] GetRandomMatrix<T>(int firstDim, int secondDim)
         {
             var rand = new Random();
-
+            
             var matrix = new T[firstDim, secondDim];
             Parallel.For((long) 0, firstDim, i =>
                 {

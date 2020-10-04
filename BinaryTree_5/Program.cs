@@ -6,6 +6,10 @@ namespace BinaryTree_5
 {
     class Program
     {
+        /// <summary>
+        /// Лабораторная работа по Защите ОС задания №5
+        /// Автор: Сова Игорь КМБ
+        /// </summary>
         static void Main(string[] args)
         {
             var binaryTree = new BinaryTree<int>(BinaryTree<int>.CompareFunction_Int);

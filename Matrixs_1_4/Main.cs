@@ -7,7 +7,7 @@ namespace OSLab_1
     public sealed class Program
     {
         /// <summary>
-        /// Лабораторная работа по Защите ОС №1-3
+        /// Лабораторная работа по Защите ОС задания №1-3
         /// Автор: Сова Игорь КМБ
         /// </summary>
         static void Main(string[] args)
@@ -28,7 +28,7 @@ namespace OSLab_1
             Console.WriteLine();
 
             ConsoleEx.WriteColorfulText( "Сортировка вещественных чисел методом подсчета по убыванию:",ConsoleColor.Yellow);
-            var randomMatrix = matrix.GetRandomMatrix<double>(10,3);//Создание матрицы в многопотоке
+            var randomMatrix = matrix.GetRandomMatrix<double>(10000,3000);//Создание матрицы в многопотоке
             matrix.Print(randomMatrix);
             matrix.CountingSortDoubleByRow(ref randomMatrix);
             matrix.Print(randomMatrix);
