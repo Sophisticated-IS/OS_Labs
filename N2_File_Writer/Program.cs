@@ -9,65 +9,43 @@ namespace N2_File_Read_Write
 {
     class Program
     {
-        public static event EventHandler TextWasWrittenEvent;
-        
         static void Main(string[] args)
         {
-            try
+            ConsoleEx.WriteColorfulText("Press Enter to start input text or press Esc to exit", ConsoleColor.Magenta);
+           var mutex = new Mutex(false,"ReadWriteMutex");
+            while (true)
             {
-                ConsoleEx.WriteColorfulText("Press Enter to start input text or press Esc to exit",ConsoleColor.Magenta);
-                TextWasWrittenEvent+= OnTextWasWrittenEvent;
-                while (true)
+                var key = Console.ReadKey();
+                switch (key.Key)
                 {
-                    var key = Console.ReadKey();
-                    switch (key.Key)
-                    {
-                        case ConsoleKey.Escape:
-                            ConsoleEx.WriteColorfulText("Приложение будет закрыто", ConsoleColor.Red);
-                            Environment.Exit(0);
-                            break;
+                    case ConsoleKey.Escape:
+                        ConsoleEx.WriteColorfulText("Приложение будет закрыто", ConsoleColor.Red);
+                        Environment.Exit(0);
+                        break;
 
-                        case ConsoleKey.Enter:
-                            WriteTextToFile();
-                            break;
-      
-                    }
+                    case ConsoleKey.Enter:
+                        WriteTextToFile(mutex);
+                        break;
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                Thread.Sleep(100000);
-                throw;
-            }
         }
 
-        private static void OnTextWasWrittenEvent(object? sender, EventArgs e)
-        {
-            CommonFileMutex.Mutex.ReleaseMutex();
-            ConsoleEx.WriteColorfulText("Writer - отпустил мьютекс",ConsoleColor.DarkCyan);
-        }
 
-        private static void WriteTextToFile()
+        private static void WriteTextToFile(Mutex mutex)
         {
             ConsoleEx.WriteColorfulText("Введите текст для записи:", ConsoleColor.Yellow);
             var userText = Console.ReadLine();
 
-            
-            CommonFileMutex.Mutex.WaitOne();
-            using(var streamWriter = new StreamWriter(CommonFileMutex.FilePath,true))
+            mutex.WaitOne();
+            ConsoleEx.WriteColorfulText("Writer - захватил мьютекс", ConsoleColor.DarkCyan);
+            Thread.Sleep(3000);//типо долго пишем
+            using (var streamWriter = new StreamWriter(CommonFileMutex.FilePath, true))
             {
-                ConsoleEx.WriteColorfulText("Writer - захватил мьютекс",ConsoleColor.DarkCyan);
-                var writeTask = streamWriter.WriteLineAsync(userText);
-                writeTask.ContinueWith(TargetReleaseMutex);
+                streamWriter.WriteLine(userText);
             }
-            
-        }
 
-        private static void TargetReleaseMutex(Task arg1)
-        {
-            Thread.Sleep(100);
-            TextWasWrittenEvent?.Invoke(null,EventArgs.Empty);
+            ConsoleEx.WriteColorfulText("Writer - отпустил мьютекс", ConsoleColor.DarkCyan);
+            mutex.ReleaseMutex();
         }
     }
 }

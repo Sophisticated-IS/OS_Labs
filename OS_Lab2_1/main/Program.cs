@@ -11,7 +11,7 @@ namespace OS_Lab2.main
             ConsoleEx.WriteColorfulText("Сова Игорь КМБ Лаба № 2",ConsoleColor.Cyan);
             Console.WriteLine();
             
-            var matrix = new double[3, 5];
+            var matrix = new int[3, 3];
             var matrixAsync = new MatrixAsync();
             var matrixClass = new Matrix();
             matrixAsync.FillRowRandomNumbers(ref matrix);

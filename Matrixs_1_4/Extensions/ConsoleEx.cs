@@ -8,7 +8,7 @@ namespace OSLab_1.Extensions
         public static void WriteColorfulText(string message,ConsoleColor color)
         {
             Console.ForegroundColor = color;
-            Console.WriteLine(message);
+            Console.Write(message);
             Console.ResetColor();
         }
     }

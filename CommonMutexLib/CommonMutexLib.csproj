@@ -4,4 +4,8 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Matrixs_1_4\Matrixs_1_4.csproj" />
+    </ItemGroup>
+
 </Project>

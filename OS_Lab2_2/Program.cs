@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using OSLab_1.Extensions;
 
@@ -8,54 +6,34 @@ namespace OS_Lab2_2
 {
     class Program
     {
-        
-        
         static void Main()
         {
-            ConsoleEx.WriteColorfulText("Введите текст для нахождения хэш суммы:",ConsoleColor.Yellow);
+            ConsoleEx.WriteColorfulText("Введите текст для нахождения хэш суммы:", ConsoleColor.Yellow);
             var text = Console.ReadLine();
 
             if (text == null || text.Length <= 0) return;
-            
-            var locker = new object();
-            var locker2 = new object();
-            var sum = default(int);
-            var hash = new StringBuilder();
-            var hash2 = new StringBuilder();
-            Parallel.For(0,text.Length-1,i =>
-            {
-                var localSum = default(int);
-                for (var j = 0; j < text.Length; j++)
-                {
-                    var k = text.Length - 1;
-                    var s = j;
-                    var charNumber = i + k * s;
-                    
-                    if (j == charNumber % 0xFF)
-                    {
-                        lock (locker)
-                        {
-                             sum += text[j];
-                             localSum += text[j];
-                        }
-                    }
-                }
 
-                lock (locker2)
+            var locker = new object();
+            var sum = default(int);
+            var n = text.Length;
+            const int k = 3;
+            Parallel.For(0, k, i =>
+            {
+                var s = 0;
+
+                while (i + k * s < n)
                 {
-                    var res = IntToBytes(localSum);
-                    var s = res.Select(b=> (char)b).ToArray();
-                    
-                    hash.Append(s);
-                    hash2.Append((char) localSum);
+                    lock (locker)
+                    {
+                        sum += text[s] % 256;
+                    }
+
+                    s++;
                 }
             });
-            
-            ConsoleEx.WriteColorfulText($"Контрольная сумма : {sum}",ConsoleColor.Red);
-            ConsoleEx.WriteColorfulText($"Контрольная сумма : {hash}",ConsoleColor.Green);
-            ConsoleEx.WriteColorfulText($"Контрольная сумма : {hash2}",ConsoleColor.Green);
-          Console.Read();
 
+            ConsoleEx.WriteColorfulText($"Контрольная сумма : {sum}", ConsoleColor.Red);
+            Console.Read();
         }
 
         private static byte[] IntToBytes(int intValue)
